@@ -27,7 +27,11 @@ export function usePurchase() {
       }
 
       const { customerInfo } = await Purchases.purchasePackage(pkg);
-      const isPremium = !!customerInfo.entitlements.active[IAP_ENTITLEMENT_ID];
+      // Check specific entitlement OR fall back to any active entitlement
+      const activeEntitlements = Object.keys(customerInfo.entitlements.active);
+      const isPremium =
+        !!customerInfo.entitlements.active[IAP_ENTITLEMENT_ID] ||
+        activeEntitlements.length > 0;
       await setPremium(isPremium);
       setStatus(isPremium ? 'success' : 'error');
     } catch (e: any) {
@@ -46,7 +50,10 @@ export function usePurchase() {
       setErrorMessage('');
 
       const customerInfo = await Purchases.restorePurchases();
-      const isPremium = !!customerInfo.entitlements.active[IAP_ENTITLEMENT_ID];
+      const activeEntitlements = Object.keys(customerInfo.entitlements.active);
+      const isPremium =
+        !!customerInfo.entitlements.active[IAP_ENTITLEMENT_ID] ||
+        activeEntitlements.length > 0;
       await setPremium(isPremium);
       setStatus(isPremium ? 'success' : 'error');
       if (!isPremium) setErrorMessage('No previous purchase found.');

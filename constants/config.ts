@@ -74,7 +74,7 @@ export const ACTIVITIES: ActivityConfig[] = [
 /** RevenueCat product identifier */
 export const IAP_PRODUCT_ID = 'tinyexplorers_full_access';
 /** RevenueCat entitlement identifier */
-export const IAP_ENTITLEMENT_ID = 'premium';
+export const IAP_ENTITLEMENT_ID = 'Tiny Explorers Pro';
 /** RevenueCat Android public SDK key */
 export const REVENUECAT_ANDROID_KEY = 'goog_evpYfObnMVhmeTnGmWhXYfpbiyU';
 

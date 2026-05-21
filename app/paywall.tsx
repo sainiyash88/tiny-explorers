@@ -66,13 +66,18 @@ export default function Paywall() {
 
           {/* Buy button */}
           <TouchableOpacity
-            style={[styles.buyBtn, isLoading && styles.btnDisabled]}
+            style={[styles.buyBtn, (isLoading || status === 'success') && styles.btnDisabled]}
             activeOpacity={0.85}
             onPress={purchase}
-            disabled={isLoading}
+            disabled={isLoading || status === 'success'}
           >
             {isLoading ? (
               <ActivityIndicator color={Colors.white} />
+            ) : status === 'success' ? (
+              <>
+                <Text style={styles.buyText}>✅ Unlocked!</Text>
+                <Text style={styles.buyPrice}>Enjoy all chapters</Text>
+              </>
             ) : (
               <>
                 <Text style={styles.buyText}>🔓 Unlock Full Access</Text>
