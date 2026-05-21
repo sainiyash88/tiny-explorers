@@ -21,6 +21,7 @@ function ShapeIcon({ shape, size }: { shape: string; size: number }) {
 
 interface Props {
   level: FindColorLevel;
+  disabled?: boolean;
   onComplete: (correct: boolean) => void;
 }
 
@@ -33,7 +34,7 @@ function shuffle<T>(arr: T[]): T[] {
   return a;
 }
 
-export default function FindColorGame({ level, onComplete }: Props) {
+export default function FindColorGame({ level, disabled, onComplete }: Props) {
   const { width } = useWindowDimensions();
   const { playFail } = useSound();
 
@@ -61,7 +62,7 @@ export default function FindColorGame({ level, onComplete }: Props) {
   }, [step, currentLabel]);
 
   function handleTap(idx: number) {
-    if (tapped.has(idx) || wrongFlash !== null) return;
+    if (disabled || tapped.has(idx) || wrongFlash !== null) return;
 
     if (idx === currentIdx) {
       const nextTapped = new Set(tapped).add(idx);

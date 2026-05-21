@@ -45,13 +45,19 @@ export default function BrainGymLevel() {
 
   const [showReward, setShowReward] = useState(false);
   const [gameKey, setGameKey] = useState(0);
+  const [gameReady, setGameReady] = useState(false);
 
   useEffect(() => {
-    // Warm up TTS engine then speak the level instruction
+    setGameReady(false);
     Speech.speak(' ', { rate: 0.75, pitch: 1.1 });
     const warmup = setTimeout(() => Speech.stop(), 150);
     const speak = setTimeout(() => {
-      if (levelData) Speech.speak(levelData.instruction, { rate: 0.75, pitch: 1.1 });
+      if (levelData) Speech.speak(levelData.instruction, {
+        rate: 0.75, pitch: 1.1,
+        onDone: () => setGameReady(true),
+        onStopped: () => setGameReady(true),
+        onError: () => setGameReady(true),
+      });
     }, 600);
     return () => {
       clearTimeout(warmup);
@@ -104,39 +110,18 @@ export default function BrainGymLevel() {
 
   function renderGame() {
     if (!levelData) return null;
-    if (levelData.type === 'pattern') {
-      return <PatternGame key={gameKey} level={levelData} onComplete={handleComplete} />;
-    }
-    if (levelData.type === 'missing') {
-      return <MissingGame key={gameKey} level={levelData} onComplete={handleComplete} />;
-    }
-    if (levelData.type === 'bigsmall') {
-      return <BigSmallGame key={gameKey} level={levelData} onComplete={handleComplete} />;
-    }
-    if (levelData.type === 'opposite') {
-      return <OppositeGame key={gameKey} level={levelData} onComplete={handleComplete} />;
-    }
-    if (levelData.type === 'count') {
-      return <CountGame key={gameKey} level={levelData} onComplete={handleComplete} />;
-    }
-    if (levelData.type === 'moreless') {
-      return <MoreLessGame key={gameKey} level={levelData} onComplete={handleComplete} />;
-    }
-    if (levelData.type === 'matchfollow') {
-      return <MatchFollowGame key={gameKey} level={levelData} onComplete={handleComplete} />;
-    }
-    if (levelData.type === 'oddoneout') {
-      return <OddOneOutGame key={gameKey} level={levelData} onComplete={handleComplete} />;
-    }
-    if (levelData.type === 'finddiff') {
-      return <FindDiffGame key={gameKey} level={levelData} onComplete={handleComplete} />;
-    }
-    if (levelData.type === 'maze') {
-      return <MazeGame key={gameKey} level={levelData} onComplete={handleComplete} />;
-    }
-    if (levelData.type === 'findcolor') {
-      return <FindColorGame key={gameKey} level={levelData} onComplete={handleComplete} />;
-    }
+    const gameProps = { key: gameKey, level: levelData, disabled: !gameReady, onComplete: handleComplete };
+    if (levelData.type === 'pattern')    return <PatternGame    {...gameProps} />;
+    if (levelData.type === 'missing')    return <MissingGame    {...gameProps} />;
+    if (levelData.type === 'bigsmall')   return <BigSmallGame   {...gameProps} />;
+    if (levelData.type === 'opposite')   return <OppositeGame   {...gameProps} />;
+    if (levelData.type === 'count')      return <CountGame      {...gameProps} />;
+    if (levelData.type === 'moreless')   return <MoreLessGame   {...gameProps} />;
+    if (levelData.type === 'matchfollow') return <MatchFollowGame {...gameProps} />;
+    if (levelData.type === 'oddoneout')  return <OddOneOutGame  {...gameProps} />;
+    if (levelData.type === 'finddiff')   return <FindDiffGame   {...gameProps} />;
+    if (levelData.type === 'maze')       return <MazeGame       {...gameProps} />;
+    if (levelData.type === 'findcolor')  return <FindColorGame  {...gameProps} />;
     return null;
   }
 

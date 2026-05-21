@@ -6,6 +6,7 @@ import type { OddOneOutLevel } from '@/content/braingym/chapter1';
 
 interface Props {
   level: OddOneOutLevel;
+  disabled?: boolean;
   onComplete: (correct: boolean) => void;
 }
 
@@ -45,7 +46,7 @@ function ShapeIcon({ shape, size }: { shape: string; size: number }) {
   return null;
 }
 
-export default function OddOneOutGame({ level, onComplete }: Props) {
+export default function OddOneOutGame({ level, disabled, onComplete }: Props) {
   const [chosen, setChosen] = useState<number | null>(null);
   const { width } = useWindowDimensions();
 

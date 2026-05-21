@@ -34,12 +34,20 @@ export default function PuzzlesLevel() {
   const levels = CHAPTER_CONTENT[chapterNum];
   const levelData = levels?.find((l) => l.id === levelNum);
 
+  const [gameReady, setGameReady] = useState(false);
+
   useEffect(() => {
     if (!levelData) return;
+    setGameReady(false);
     Speech.speak(' ', { rate: 0.75, pitch: 1.1 });
     const warmup = setTimeout(() => Speech.stop(), 150);
     const speak = setTimeout(() => {
-      Speech.speak(levelData.instruction, { rate: 0.75, pitch: 1.1 });
+      Speech.speak(levelData.instruction, {
+        rate: 0.75, pitch: 1.1,
+        onDone: () => setGameReady(true),
+        onStopped: () => setGameReady(true),
+        onError: () => setGameReady(true),
+      });
     }, 600);
     return () => {
       clearTimeout(warmup);
@@ -141,6 +149,7 @@ export default function PuzzlesLevel() {
       <PuzzleBoard
         key={boardKey}
         puzzle={levelData}
+        disabled={!gameReady}
         onComplete={handleComplete}
         onWrongDrop={playFail}
       />

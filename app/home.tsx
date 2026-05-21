@@ -149,13 +149,6 @@ export default function HomeScreen() {
           ))}
         </View>
 
-        {/* Parent area */}
-        <TouchableOpacity
-          style={styles.parentBtn}
-          onPress={() => router.push('/parent-gate?next=settings')}
-        >
-          <Text style={styles.parentBtnText}>👨‍👩‍👧 Parent Area</Text>
-        </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );

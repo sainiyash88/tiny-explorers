@@ -6,6 +6,7 @@ import type { MatchLevel } from '@/content/matching/chapter1';
 
 interface Props {
   level: MatchLevel;
+  disabled?: boolean;
   onComplete: () => void;
   onMismatch?: () => void;
   peekTrigger?: number;
@@ -27,7 +28,7 @@ function shuffle<T>(arr: T[]): T[] {
   return a;
 }
 
-export default function MatchGrid({ level, onComplete, onMismatch, peekTrigger, onPeekingChange }: Props) {
+export default function MatchGrid({ level, disabled, onComplete, onMismatch, peekTrigger, onPeekingChange }: Props) {
   const { width } = useWindowDimensions();
   const isTablet = width >= 768;
 
@@ -129,7 +130,7 @@ export default function MatchGrid({ level, onComplete, onMismatch, peekTrigger, 
 
   const handlePress = useCallback(
     (id: string) => {
-      if (locked.current) return;
+      if (disabled || locked.current) return;
       if (states[id] !== 'hidden') return;
       if (flippedIds.current.includes(id)) return;
 
@@ -165,7 +166,7 @@ export default function MatchGrid({ level, onComplete, onMismatch, peekTrigger, 
         }, 900);
       }
     },
-    [states, level.cards, onComplete]
+    [disabled, states, level.cards, onComplete]
   );
 
   return (

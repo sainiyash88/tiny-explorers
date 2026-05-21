@@ -27,6 +27,7 @@ function ShapeIcon({ shape }: { shape: string }) {
 
 interface Props {
   level: MatchFollowLevel;
+  disabled?: boolean;
   onComplete: (correct: boolean) => void;
 }
 
@@ -35,7 +36,7 @@ interface Pos { x: number; y: number }
 const DOT_RADIUS = 6;
 const SNAP_THRESHOLD = 40; // px — how close finger must land to a dot
 
-export default function MatchFollowGame({ level, onComplete }: Props) {
+export default function MatchFollowGame({ level, disabled, onComplete }: Props) {
   const { playFail } = useSound();
   // Layout measurements — row offsets + item sizes (all relative to matchArea)
   const rowOffsets = useRef<Record<string, Pos>>({});
@@ -80,6 +81,7 @@ export default function MatchFollowGame({ level, onComplete }: Props) {
   // --- Gesture handlers (JS thread via runOnJS) ---
 
   const handleBegin = useCallback((x: number, y: number) => {
+    if (disabled) return;
     // Find nearest unconnected left dot
     let nearest: string | null = null;
     let nearestDist = SNAP_THRESHOLD;

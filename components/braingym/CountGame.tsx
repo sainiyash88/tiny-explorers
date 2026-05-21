@@ -5,10 +5,11 @@ import type { CountLevel } from '@/content/braingym/chapter1';
 
 interface Props {
   level: CountLevel;
+  disabled?: boolean;
   onComplete: (correct: boolean) => void;
 }
 
-export default function CountGame({ level, onComplete }: Props) {
+export default function CountGame({ level, disabled, onComplete }: Props) {
   const [chosen, setChosen] = useState<number | null>(null);
 
   function handleChoice(n: number) {

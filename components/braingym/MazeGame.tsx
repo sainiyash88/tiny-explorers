@@ -9,6 +9,7 @@ import { useSound } from '@/hooks/useSound';
 
 interface Props {
   level: MazeLevel;
+  disabled?: boolean;
   onComplete: (correct: boolean) => void;
 }
 
@@ -49,7 +50,7 @@ function buildWallPath(grid: number[][], cW: number, cH: number): SkPath {
   return p;
 }
 
-export default function MazeGame({ level, onComplete }: Props) {
+export default function MazeGame({ level, disabled, onComplete }: Props) {
   const { playFail } = useSound();
   const { width } = useWindowDimensions();
   const rows = level.grid.length;
@@ -102,7 +103,7 @@ export default function MazeGame({ level, onComplete }: Props) {
   }, [onComplete]);
 
   const handleBegin = useCallback((x: number, y: number) => {
-    if (completed) return;
+    if (disabled || completed) return;
     const cell = touchToCell(x, y);
     if (!cell) return;
     // Only start drag if touching on or adjacent to current character cell

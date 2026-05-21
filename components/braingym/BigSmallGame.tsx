@@ -5,14 +5,15 @@ import type { BigSmallLevel } from '@/content/braingym/chapter1';
 
 interface Props {
   level: BigSmallLevel;
+  disabled?: boolean;
   onComplete: (correct: boolean) => void;
 }
 
-export default function BigSmallGame({ level, onComplete }: Props) {
+export default function BigSmallGame({ level, disabled, onComplete }: Props) {
   const [chosen, setChosen] = useState<'big' | 'small' | null>(null);
 
   function handleChoice(choice: 'big' | 'small') {
-    if (chosen) return;
+    if (disabled || chosen) return;
     setChosen(choice);
     setTimeout(() => onComplete(choice === level.correctAnswer), 700);
   }

@@ -8,6 +8,7 @@ import type { PuzzleLevel } from '@/content/puzzles/chapter1';
 
 interface Props {
   puzzle: PuzzleLevel;
+  disabled?: boolean;
   onComplete: () => void;
   onWrongDrop?: () => void;
 }
@@ -29,7 +30,7 @@ function fisherYates<T>(arr: T[]): T[] {
   return arr;
 }
 
-export default function PuzzleBoard({ puzzle, onComplete, onWrongDrop }: Props) {
+export default function PuzzleBoard({ puzzle, disabled, onComplete, onWrongDrop }: Props) {
   const { width: screenW } = useWindowDimensions();
   const isTablet = screenW >= 768;
 
@@ -64,7 +65,7 @@ export default function PuzzleBoard({ puzzle, onComplete, onWrongDrop }: Props) 
 
   const handleDrop = useCallback(
     (pieceId: string, dropX: number, dropY: number) => {
-      if (placedIds.has(pieceId)) return;
+      if (disabled || placedIds.has(pieceId)) return;
 
       const piece = puzzle.pieces.find((p) => p.id === pieceId);
       if (!piece) return;
@@ -103,7 +104,7 @@ export default function PuzzleBoard({ puzzle, onComplete, onWrongDrop }: Props) 
         setTimeout(() => setWrongDropId(null), 600);
       }
     },
-    [placedIds, puzzle.pieces, onComplete]
+    [disabled, placedIds, puzzle.pieces, onComplete]
   );
 
   const shuffledRef = useRef(fisherYates([...puzzle.pieces]));

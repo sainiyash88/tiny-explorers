@@ -5,10 +5,11 @@ import type { FindDiffLevel } from '@/content/braingym/chapter1';
 
 interface Props {
   level: FindDiffLevel;
+  disabled?: boolean;
   onComplete: (correct: boolean) => void;
 }
 
-export default function FindDiffGame({ level, onComplete }: Props) {
+export default function FindDiffGame({ level, disabled, onComplete }: Props) {
   const totalDiffs = level.diffCells.length;
   const [found, setFound] = useState<Set<string>>(new Set());
   const [wrong, setWrong] = useState<string | null>(null);
@@ -20,7 +21,7 @@ export default function FindDiffGame({ level, onComplete }: Props) {
   }
 
   function handleTap(row: number, col: number) {
-    if (found.size === totalDiffs) return;
+    if (disabled || found.size === totalDiffs) return;
     const key = cellKey(row, col);
     if (found.has(key)) return;
 

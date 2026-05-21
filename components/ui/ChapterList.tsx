@@ -12,12 +12,13 @@ interface Props {
 export default function ChapterList({ activity }: Props) {
   const { width } = useWindowDimensions();
   const isTablet = width >= 768;
-  const canAccess = useEntitlementStore((s) => s.canAccessChapter);
+  const isPremium = useEntitlementStore((s) => s.isPremium);
+  const canAccess = (free: boolean) => free || isPremium;
   const chapterProgress = useProgressStore((s) => s.chapterProgress);
 
   const handleChapterPress = (chapterId: number, free: boolean) => {
     if (!canAccess(free)) {
-      router.push('/parent-gate?next=paywall');
+      router.push('/paywall');
       return;
     }
     router.push(`/${activity.id}/${chapterId}`);

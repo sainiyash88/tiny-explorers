@@ -24,10 +24,11 @@ function renderItem(item: string, size: number) {
 
 interface Props {
   level: PatternLevel;
+  disabled?: boolean;
   onComplete: (correct: boolean) => void;
 }
 
-export default function PatternGame({ level, onComplete }: Props) {
+export default function PatternGame({ level, disabled, onComplete }: Props) {
   const { width } = useWindowDimensions();
   const [chosen, setChosen] = useState<string | null>(null);
 
@@ -40,7 +41,7 @@ export default function PatternGame({ level, onComplete }: Props) {
   );
 
   function handleChoice(emoji: string) {
-    if (chosen) return;
+    if (disabled || chosen) return;
     setChosen(emoji);
     setTimeout(() => onComplete(emoji === level.answer), 700);
   }

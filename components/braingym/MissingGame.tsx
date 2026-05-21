@@ -5,15 +5,16 @@ import type { MissingLevel } from '@/content/braingym/chapter1';
 
 interface Props {
   level: MissingLevel;
+  disabled?: boolean;
   onComplete: (correct: boolean) => void;
 }
 
-export default function MissingGame({ level, onComplete }: Props) {
+export default function MissingGame({ level, disabled, onComplete }: Props) {
   const [chosen, setChosen] = useState<string | null>(null);
   const answer = level.items[level.missingIndex];
 
   function handleChoice(emoji: string) {
-    if (chosen) return;
+    if (disabled || chosen) return;
     setChosen(emoji);
     setTimeout(() => onComplete(emoji === answer), 700);
   }

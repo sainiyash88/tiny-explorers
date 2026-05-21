@@ -6,14 +6,15 @@ import AnimalCartoon from '@/components/ui/animals/AnimalCartoon';
 
 interface Props {
   level: OppositeLevel;
+  disabled?: boolean;
   onComplete: (correct: boolean) => void;
 }
 
-export default function OppositeGame({ level, onComplete }: Props) {
+export default function OppositeGame({ level, disabled, onComplete }: Props) {
   const [chosen, setChosen] = useState<'left' | 'right' | null>(null);
 
   function handleChoice(side: 'left' | 'right') {
-    if (chosen) return;
+    if (disabled || chosen) return;
     setChosen(side);
     setTimeout(() => onComplete(side === level.correctSide), 700);
   }
