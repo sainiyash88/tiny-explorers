@@ -2,8 +2,10 @@ import { useEffect, useRef } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, Animated } from 'react-native';
 import { router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import { useBackgroundMusic } from '@/hooks/useBackgroundMusic';
 
 export default function IntroScreen() {
+  useBackgroundMusic('home');
   const fadeAnim  = useRef(new Animated.Value(0)).current;
   const scaleAnim = useRef(new Animated.Value(0.85)).current;
   const pulseAnim = useRef(new Animated.Value(1)).current;
@@ -63,7 +65,7 @@ const styles = StyleSheet.create({
   tapText: {
     position: 'absolute',
     bottom: 52,
-    fontSize: 16,
+    fontSize: 24,
     fontWeight: '700',
     color: '#FFFFFF',
     textAlign: 'center',

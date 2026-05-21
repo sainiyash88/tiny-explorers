@@ -115,8 +115,13 @@ export default function MatchingLevel() {
 
       <TouchableOpacity
         style={[styles.peekBtn, isPeeking && styles.peekBtnDisabled]}
-        onPress={() => !isPeeking && setPeekTrigger((t) => t + 1)}
+        onPress={() => {
+          if (isPeeking) return;
+          setIsPeeking(true);
+          setPeekTrigger((t) => t + 1);
+        }}
         activeOpacity={isPeeking ? 1 : 0.7}
+        disabled={isPeeking}
       >
         <Text style={styles.peekBtnText}>👀 Peek at cards</Text>
       </TouchableOpacity>

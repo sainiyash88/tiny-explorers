@@ -22,15 +22,18 @@ export default function RootLayout() {
     loadEntitlement();
 
     if (Platform.OS === 'android') {
-      Purchases.configure({ apiKey: REVENUECAT_ANDROID_KEY });
+      try {
+        Purchases.configure({ apiKey: REVENUECAT_ANDROID_KEY });
+        Purchases.getCustomerInfo()
+          .then((info) => {
+            const isPremium = !!info.entitlements.active[IAP_ENTITLEMENT_ID];
+            setPremium(isPremium);
+          })
+          .catch(() => { /* offline — keep locally stored value */ });
+      } catch {
+        // Silently fail in Expo Go — IAP requires a native build
+      }
     }
-
-    Purchases.getCustomerInfo()
-      .then((info) => {
-        const isPremium = !!info.entitlements.active[IAP_ENTITLEMENT_ID];
-        setPremium(isPremium);
-      })
-      .catch(() => { /* offline — keep locally stored value */ });
 
     // Show break reminder after 30 minutes
     const breakTimer = setTimeout(() => setShowBreak(true), SESSION_LIMIT_MS);

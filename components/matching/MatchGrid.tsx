@@ -63,7 +63,6 @@ export default function MatchGrid({ level, disabled, onComplete, onMismatch, pee
     const peekTimer = setTimeout(() => {
       clearInterval(tick);
       setPeeking(false);
-      onPeekingChange?.(false);
 
       cards.forEach((card, i) => {
         setTimeout(() => {
@@ -74,6 +73,7 @@ export default function MatchGrid({ level, disabled, onComplete, onMismatch, pee
       const unlockDelay = cards.length * FLIP_STAGGER + 400;
       setTimeout(() => {
         locked.current = false;
+        onPeekingChange?.(false);
       }, unlockDelay);
     }, PEEK_SHOW_MS);
 
@@ -105,7 +105,6 @@ export default function MatchGrid({ level, disabled, onComplete, onMismatch, pee
     const peekTimer = setTimeout(() => {
       clearInterval(tick);
       setPeeking(false);
-      onPeekingChange?.(false);
 
       cards.forEach((card, i) => {
         setTimeout(() => {
@@ -119,6 +118,7 @@ export default function MatchGrid({ level, disabled, onComplete, onMismatch, pee
       const unlockDelay = cards.length * FLIP_STAGGER + 400;
       setTimeout(() => {
         locked.current = false;
+        onPeekingChange?.(false);
       }, unlockDelay);
     }, PEEK_SHOW_MS);
 

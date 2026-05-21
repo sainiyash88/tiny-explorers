@@ -32,7 +32,7 @@ export default function Paywall() {
       {/* Full-screen background image */}
       <Image
         source={require('@/assets/images/tinyExplorers.jpeg')}
-        style={StyleSheet.absoluteFill}
+        style={styles.bgImage}
         resizeMode="cover"
       />
       {/* Dark overlay so content is readable */}
@@ -99,6 +99,15 @@ export default function Paywall() {
 
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: '#000' },
+  bgImage: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    width: '100%',
+    height: '100%',
+  },
   overlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: 'rgba(0,0,0,0.55)',

@@ -147,6 +147,8 @@ const TracingCanvas = forwardRef<TracingCanvasHandle, Props>(function TracingCan
   const isDrawing = useRef(false);
   const completed = useRef(false);
   const lastRenderTime = useRef(0);
+  const offPathHits = useRef(0);
+  const MAX_OFF_PATH_HITS = 6;
 
   const nudgeX = useSharedValue(0);
   const nudgeY = useSharedValue(0);
@@ -188,6 +190,7 @@ const TracingCanvas = forwardRef<TracingCanvasHandle, Props>(function TracingCan
     isDrawing.current = true;
     drawnPathRef.current = Skia.Path.Make();
     drawnPoints.current = [];
+    offPathHits.current = 0;
     const designX = screenX / scale;
     const designY = screenY / scale;
     drawnPathRef.current.moveTo(designX, designY);
@@ -209,9 +212,19 @@ const TracingCanvas = forwardRef<TracingCanvasHandle, Props>(function TracingCan
       if (d < minDist) minDist = d;
     }
 
-    if (minDist > tolerance * 2.5) {
+    if (minDist > tolerance * 1.0) {
+      offPathHits.current += 1;
       showNudge(screenX, screenY);
       onOffPath();
+      if (offPathHits.current >= MAX_OFF_PATH_HITS) {
+        // Too many off-path hits — treat as failure and reset stroke
+        isDrawing.current = false;
+        drawnPathRef.current = Skia.Path.Make();
+        drawnPoints.current = [];
+        offPathHits.current = 0;
+        onStrokeFail?.();
+        setTick((t) => t + 1);
+      }
       return;
     }
 
