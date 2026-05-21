@@ -1,9 +1,10 @@
 {
   "expo": {
-    "name": "kids-app",
-    "slug": "kids-app",
+    "name": "Tiny Explorers",
+    "slug": "tiny-explorers",
     "version": "1.0.0",
     "orientation": "portrait",
+    "scheme": "tinyexplorers",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
@@ -16,15 +17,32 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.tinyexplorers.app",
+      "versionCode": 2,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.MODIFY_AUDIO_SETTINGS"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      "expo-audio"
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "14b39f67-ef6a-484a-9b22-8cf4e0083dc5"
+      }
     }
   }
 }

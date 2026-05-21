@@ -1,0 +1,237 @@
+import type { TracingLevel } from './chapter1';
+
+// Lowercase Letters a–z, all designed for a 300×300 viewBox
+// Mid-zone: y 100–240; ascenders reach y 40; descenders reach y 285
+const VB = { width: 300, height: 300 };
+
+const LEVELS: TracingLevel[] = [
+  {
+    id: 1,
+    title: 'Letter a',
+    instruction: 'Trace the small letter a!',
+    path: 'M 213 172 Q 213 100 148 100 Q 83 100 83 172 Q 83 248 148 248 Q 213 248 213 172 L 213 248',
+    viewBox: VB,
+    startPoint: { x: 213, y: 172 },
+  },
+  {
+    id: 2,
+    title: 'Letter b',
+    instruction: 'Trace the small letter b!',
+    // Ascender down then bowl to the right
+    path: 'M 85 40 L 85 195 Q 85 130 155 130 Q 225 130 225 190 Q 225 255 155 255 Q 85 255 85 215',
+    viewBox: VB,
+    startPoint: { x: 85, y: 40 },
+  },
+  {
+    id: 3,
+    title: 'Letter c',
+    instruction: 'Trace the small letter c!',
+    path: 'M 215 130 Q 190 100 150 100 Q 90 100 90 175 Q 90 250 150 250 Q 190 250 215 220',
+    viewBox: VB,
+    startPoint: { x: 215, y: 130 },
+  },
+  {
+    id: 4,
+    title: 'Letter d',
+    instruction: 'Trace the small letter d!',
+    // Ascender down then bowl to the left
+    path: 'M 215 40 L 215 195 Q 215 130 145 130 Q 75 130 75 190 Q 75 255 145 255 Q 215 255 215 215',
+    viewBox: VB,
+    startPoint: { x: 215, y: 40 },
+  },
+  {
+    id: 5,
+    title: 'Letter e',
+    instruction: 'Trace the small letter e!',
+    // Crossbar then around the bowl
+    path: 'M 90 175 L 215 175 Q 215 100 150 100 Q 85 100 85 175 Q 85 250 150 250 Q 190 250 215 220',
+    viewBox: VB,
+    startPoint: { x: 90, y: 175 },
+  },
+  {
+    id: 6,
+    title: 'Letter f',
+    instruction: 'Trace the small letter f!',
+    viewBox: VB,
+    strokes: [
+      { path: 'M 215 90 Q 215 40 175 40 Q 140 40 140 85 L 140 260', startPoint: { x: 215, y: 90 } },
+      { path: 'M 72 152 L 208 152',                                   startPoint: { x: 72, y: 152 } },
+    ],
+  },
+  {
+    id: 7,
+    title: 'Letter g',
+    instruction: 'Trace the small letter g!',
+    // Bowl then descender loop
+    path: 'M 220 110 Q 220 50 150 50 Q 80 50 80 120 Q 80 190 150 190 Q 220 190 220 120 L 220 205 Q 220 242 150 242 Q 100 242 82 222',
+    viewBox: VB,
+    startPoint: { x: 220, y: 110 },
+  },
+  {
+    id: 8,
+    title: 'Letter h',
+    instruction: 'Trace the small letter h!',
+    viewBox: VB,
+    strokes: [
+      { path: 'M 85 40 L 85 260',                                              startPoint: { x: 85, y: 40 } },
+      { path: 'M 85 165 Q 85 125 130 125 Q 220 125 220 175 L 220 260',         startPoint: { x: 85, y: 165 } },
+    ],
+  },
+  {
+    id: 9,
+    title: 'Letter i',
+    instruction: 'Trace the small letter i!',
+    path: 'M 150 110 L 150 260',
+    viewBox: VB,
+    startPoint: { x: 150, y: 110 },
+    decorations: [{ type: 'circle', cx: 150, cy: 75, r: 12 }],
+  },
+  {
+    id: 10,
+    title: 'Letter j',
+    instruction: 'Trace the small letter j!',
+    path: 'M 165 88 L 165 232 Q 165 268 125 268 Q 90 268 82 245',
+    viewBox: VB,
+    startPoint: { x: 165, y: 88 },
+    decorations: [{ type: 'circle', cx: 165, cy: 52, r: 12 }],
+  },
+  {
+    id: 11,
+    title: 'Letter k',
+    instruction: 'Trace the small letter k!',
+    viewBox: VB,
+    strokes: [
+      { path: 'M 85 40 L 85 260',              startPoint: { x: 85, y: 40 } },
+      { path: 'M 215 110 L 85 170 L 215 260',  startPoint: { x: 215, y: 110 } },
+    ],
+  },
+  {
+    id: 12,
+    title: 'Letter l',
+    instruction: 'Trace the small letter l!',
+    path: 'M 150 40 L 150 260',
+    viewBox: VB,
+    startPoint: { x: 150, y: 40 },
+  },
+  {
+    id: 13,
+    title: 'Letter m',
+    instruction: 'Trace the small letter m!',
+    path: 'M 62 262 L 62 90 Q 62 52 110 52 Q 155 52 155 138 Q 155 52 200 52 Q 248 52 248 138 L 248 262',
+    viewBox: VB,
+    startPoint: { x: 62, y: 262 },
+  },
+  {
+    id: 14,
+    title: 'Letter n',
+    instruction: 'Trace the small letter n!',
+    path: 'M 62 262 L 62 90 Q 62 52 112 52 Q 222 52 222 140 L 222 262',
+    viewBox: VB,
+    startPoint: { x: 62, y: 262 },
+  },
+  {
+    id: 15,
+    title: 'Letter o',
+    instruction: 'Trace the small letter o!',
+    path: 'M 150 100 A 75 75 0 1 1 149.9 100',
+    viewBox: VB,
+    startPoint: { x: 150, y: 100 },
+    closed: true,
+  },
+  {
+    id: 16,
+    title: 'Letter p',
+    instruction: 'Trace the small letter p!',
+    path: 'M 82 60 L 82 138 Q 82 72 150 72 Q 220 72 220 138 Q 220 208 150 208 Q 82 208 82 138 L 82 285',
+    viewBox: VB,
+    startPoint: { x: 82, y: 60 },
+  },
+  {
+    id: 17,
+    title: 'Letter q',
+    instruction: 'Trace the small letter q!',
+    path: 'M 218 60 L 218 138 Q 218 72 150 72 Q 80 72 80 138 Q 80 208 150 208 Q 218 208 218 138 L 218 285',
+    viewBox: VB,
+    startPoint: { x: 218, y: 60 },
+  },
+  {
+    id: 18,
+    title: 'Letter r',
+    instruction: 'Trace the small letter r!',
+    path: 'M 85 260 L 85 130 Q 85 100 130 100 Q 165 100 190 118',
+    viewBox: VB,
+    startPoint: { x: 85, y: 260 },
+  },
+  {
+    id: 19,
+    title: 'Letter s',
+    instruction: 'Trace the small letter s!',
+    path: 'M 210 130 C 185 95 90 95 90 148 C 90 188 210 188 210 228 C 210 262 155 270 90 252',
+    viewBox: VB,
+    startPoint: { x: 210, y: 130 },
+  },
+  {
+    id: 20,
+    title: 'Letter t',
+    instruction: 'Trace the small letter t!',
+    viewBox: VB,
+    strokes: [
+      { path: 'M 150 48 L 150 255 Q 162 268 180 262', startPoint: { x: 150, y: 48 } },
+      { path: 'M 82 122 L 218 122',                    startPoint: { x: 82, y: 122 } },
+    ],
+  },
+  {
+    id: 21,
+    title: 'Letter u',
+    instruction: 'Trace the small letter u!',
+    path: 'M 85 100 L 85 210 Q 85 265 150 265 Q 215 265 215 210 L 215 100 L 215 260',
+    viewBox: VB,
+    startPoint: { x: 85, y: 100 },
+  },
+  {
+    id: 22,
+    title: 'Letter v',
+    instruction: 'Trace the small letter v!',
+    path: 'M 80 100 L 150 260 L 220 100',
+    viewBox: VB,
+    startPoint: { x: 80, y: 100 },
+  },
+  {
+    id: 23,
+    title: 'Letter w',
+    instruction: 'Trace the small letter w!',
+    path: 'M 55 100 L 100 260 L 150 175 L 200 260 L 245 100',
+    viewBox: VB,
+    startPoint: { x: 55, y: 100 },
+  },
+  {
+    id: 24,
+    title: 'Letter x',
+    instruction: 'Trace the small letter x!',
+    viewBox: VB,
+    strokes: [
+      { path: 'M 90 100 L 210 260',  startPoint: { x: 90, y: 100 } },
+      { path: 'M 210 100 L 90 260',  startPoint: { x: 210, y: 100 } },
+    ],
+  },
+  {
+    id: 25,
+    title: 'Letter y',
+    instruction: 'Trace the small letter y!',
+    viewBox: VB,
+    strokes: [
+      { path: 'M 82 88 L 150 175 L 218 88',            startPoint: { x: 82, y: 88 } },
+      { path: 'M 150 175 L 122 248 Q 108 265 90 258',  startPoint: { x: 150, y: 175 } },
+    ],
+  },
+  {
+    id: 26,
+    title: 'Letter z',
+    instruction: 'Trace the small letter z!',
+    path: 'M 85 100 L 215 100 L 85 260 L 215 260',
+    viewBox: VB,
+    startPoint: { x: 85, y: 100 },
+  },
+];
+
+export default LEVELS;
