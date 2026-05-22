@@ -34,8 +34,10 @@ export default function MatchGrid({ level, disabled, onComplete, onMismatch, pee
 
   const cols = level.cols ?? (level.cards.length <= 4 ? 2 : isTablet ? 4 : 3);
   const cardGap = Spacing.sm;
+  const totalGap = cardGap * (cols - 1);
+  const availableWidth = width - Spacing.lg * 2 - totalGap;
   const cardSize = Math.min(
-    Math.floor((width - Spacing.lg * 2 - cardGap * (cols - 1)) / cols),
+    Math.floor(availableWidth / cols),
     isTablet ? 140 : 110
   );
 
@@ -177,7 +179,7 @@ export default function MatchGrid({ level, disabled, onComplete, onMismatch, pee
           <Text style={styles.peekCountdown}>{countdown}</Text>
         </View>
       )}
-      <View style={[styles.grid, { gap: cardGap }]}>
+      <View style={[styles.grid, { width: cardSize * cols + totalGap }]}>
         {cards.map((card) => (
           <FlipCard
             key={card.id}
@@ -198,7 +200,7 @@ export default function MatchGrid({ level, disabled, onComplete, onMismatch, pee
 
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: Spacing.lg },
-  grid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' },
+  grid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: Spacing.sm },
   peekBanner: {
     flexDirection: 'row',
     alignItems: 'center',

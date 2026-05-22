@@ -228,7 +228,7 @@ const LEVELS: BrainLevel[] = [
     mascot: 'fish',
     items: ['🦁', '🐘', '🐒', '🦒'],
     missingIndex: 2,
-    choices: ['🐸', '🐒', '🦁'],
+    choices: ['🐘', '🐒', '🦁'],
   },
   {
     id: 10,

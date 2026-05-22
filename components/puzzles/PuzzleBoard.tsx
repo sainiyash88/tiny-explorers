@@ -151,7 +151,7 @@ export default function PuzzleBoard({ puzzle, disabled, onComplete, onWrongDrop 
       {/* Piece tray */}
       <View style={styles.section}>
         <Text style={styles.sectionLabel}>Drag a piece up</Text>
-        <View style={[styles.tray, { gap: zoneGap }]}>
+        <View style={[styles.tray, { gap: zoneGap, width: pieceSize * puzzle.cols + zoneGap * (puzzle.cols - 1) }]}>
           {shuffledRef.current.map((piece) => (
             <PuzzlePiece
               key={piece.id}
