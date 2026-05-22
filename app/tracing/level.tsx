@@ -113,8 +113,11 @@ export default function TracingLevel() {
         onError: () => setTracingReady(true),
       });
     }, 600);
+    // Fallback: some Android TTS engines never fire callbacks — unlock after 4s max
+    const fallback = setTimeout(() => setTracingReady(true), 4000);
     return () => {
       clearTimeout(timer);
+      clearTimeout(fallback);
       Speech.stop();
     };
   }, [levelData?.title]);

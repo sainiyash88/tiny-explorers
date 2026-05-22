@@ -49,7 +49,7 @@ const LEVELS: BrainLevel[] = [
   },
   // ── Colour identification ─────────────────────────────────────────
   {
-    id: 9, type: 'findcolor', title: 'Find the Color!', instruction: 'Tap each color when asked!',
+    id: 8, type: 'findcolor', title: 'Find the Color!', instruction: 'Tap each color when asked!',
     mascot: 'frog',
     items: [
       { emoji: '❤️',  label: 'Red' },
@@ -63,7 +63,7 @@ const LEVELS: BrainLevel[] = [
   },
   // ── Shape identification ──────────────────────────────────────────
   {
-    id: 10, type: 'findcolor', title: 'Find the Shape!', instruction: 'Tap each shape when asked!',
+    id: 9, type: 'findcolor', title: 'Find the Shape!', instruction: 'Tap each shape when asked!',
     mascot: 'elephant',
     items: [
       { emoji: '', label: 'Triangle',  svgShape: 'triangle' },

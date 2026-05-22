@@ -59,9 +59,12 @@ export default function BrainGymLevel() {
         onError: () => setGameReady(true),
       });
     }, 600);
+    // Fallback: some Android TTS engines never fire callbacks — unlock after 4s max
+    const fallback = setTimeout(() => setGameReady(true), 4000);
     return () => {
       clearTimeout(warmup);
       clearTimeout(speak);
+      clearTimeout(fallback);
       Speech.stop();
     };
   }, [levelNum]);
