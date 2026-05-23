@@ -30,6 +30,7 @@ export const useEntitlementStore = create<EntitlementState>((set, get) => ({
   },
 
   canAccessChapter: (chapterFree) => {
+    if (__DEV__) return true; // unlock all chapters in Expo Go for testing
     return chapterFree || get().isPremium;
   },
 }));

@@ -12,8 +12,8 @@ interface Props {
 export default function ChapterList({ activity }: Props) {
   const { width } = useWindowDimensions();
   const isTablet = width >= 768;
-  const isPremium = useEntitlementStore((s) => s.isPremium);
-  const canAccess = (free: boolean) => free || isPremium;
+  const canAccessChapter = useEntitlementStore((s) => s.canAccessChapter);
+  const canAccess = (free: boolean) => canAccessChapter(free);
   const chapterProgress = useProgressStore((s) => s.chapterProgress);
 
   const handleChapterPress = (chapterId: number, free: boolean) => {
