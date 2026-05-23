@@ -99,7 +99,7 @@ export default function MatchFollowGame({ level, disabled, onComplete }: Props) 
     livePathRef.current = Skia.Path.Make();
     livePathRef.current.moveTo(dot.x, dot.y);
     setTick(t => t + 1);
-  }, [level.pairs, connections]);
+  }, [level.pairs, connections, disabled]);
 
   const handleUpdate = useCallback((x: number, y: number) => {
     if (!draggingFrom.current) return;

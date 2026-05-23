@@ -113,7 +113,7 @@ export default function MazeGame({ level, disabled, onComplete }: Props) {
         moveCharTo(cell);
       }
     }
-  }, [completed, moveCharTo]);
+  }, [completed, moveCharTo, disabled]);
 
   const handleUpdate = useCallback((x: number, y: number) => {
     if (!dragging.current || completed) return;
