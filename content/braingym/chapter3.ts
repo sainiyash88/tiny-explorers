@@ -5,6 +5,7 @@ const LEVELS: BrainLevel[] = [
     id: 1, type: 'matchfollow', title: 'Match Numbers!', instruction: 'Match each number to the dots!',
     mascot: 'giraffe',
     question: 'Draw a line to match! ✏️',
+    wrapTiles: true,
     pairs: [
       { pairId: 'one',   left: '1', right: '🌸'           },
       { pairId: 'two',   left: '2', right: '🍦🍦'         },

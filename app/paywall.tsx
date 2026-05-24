@@ -93,7 +93,7 @@ export default function Paywall() {
 
           {/* Legal */}
           <Text style={styles.legal}>No ads · No data collected from children</Text>
-          <TouchableOpacity onPress={() => Linking.openURL('https://sainiyash88.github.io/tiny-explorers/')}>
+          <TouchableOpacity onPress={() => Linking.openURL('https://sites.google.com/view/tinyexplorerstnc/')}>
             <Text style={styles.legalLink}>Terms &amp; Conditions</Text>
           </TouchableOpacity>
         </ScrollView>

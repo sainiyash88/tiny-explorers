@@ -53,7 +53,7 @@ export default function PuzzlesChapter() {
   }
 
   const cols = isTablet ? 4 : 3;
-  const tileSize = (width - Spacing.lg * 2 - Spacing.sm * (cols - 1)) / cols;
+  const tileSize = Math.floor((width - Spacing.lg * 2 - Spacing.sm * (cols - 1)) / cols);
 
   return (
     <SafeAreaView style={styles.container} edges={['bottom']}>
