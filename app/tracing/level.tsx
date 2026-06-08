@@ -48,6 +48,7 @@ export default function TracingLevel() {
 
   const [showReward, setShowReward] = useState(false);
   const [tracingReady, setTracingReady] = useState(false);
+  const [speechTrigger, setSpeechTrigger] = useState(0);
   const offPathCount = useRef(0);
 
   const canvasRef = useRef<TracingCanvasHandle>(null);
@@ -68,6 +69,7 @@ export default function TracingLevel() {
     offPathCount.current = 0;
     canvasRef.current?.reset();
     setShowReward(false);
+    setSpeechTrigger((t) => t + 1);
   }, []);
 
   const handleComplete = useCallback(() => {
@@ -120,7 +122,7 @@ export default function TracingLevel() {
       clearTimeout(fallback);
       Speech.stop();
     };
-  }, [levelData?.title]);
+  }, [levelData?.title, speechTrigger]);
 
   if (!levelData) {
     return (

@@ -28,7 +28,6 @@ export function useSound() {
   const successPlayer = useAudioPlayer(successFile);
   const failPlayer = useAudioPlayer(failFile);
 
-  const successStatus = useAudioPlayerStatus(successPlayer);
   const failStatus = useAudioPlayerStatus(failPlayer);
 
   const lastSuccessPlayedAt = useRef(0);
@@ -45,13 +44,12 @@ export function useSound() {
   }, [failStatus.didJustFinish]);
 
   const playSuccess = useCallback(() => {
-    if (!successStatus.isLoaded) return;
     const now = Date.now();
     if (now - lastSuccessPlayedAt.current < COOLDOWN_MS) return;
     lastSuccessPlayedAt.current = now;
     successPlayer.seekTo(0).catch(() => {});
     try { successPlayer.play(); } catch {}
-  }, [successPlayer, successStatus.isLoaded]);
+  }, [successPlayer]);
 
   const playFail = useCallback((onDone?: () => void) => {
     if (!failStatus.isLoaded) return;

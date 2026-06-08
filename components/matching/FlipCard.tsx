@@ -3,6 +3,13 @@ import { Animated, TouchableOpacity, View, Text, StyleSheet } from 'react-native
 import { Colors, Radii } from '@/constants/theme';
 import AnimalCartoon from '@/components/ui/animals/AnimalCartoon';
 
+function toPastel(hex: string): string {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return `rgb(${Math.round(r + (255 - r) * 0.6)},${Math.round(g + (255 - g) * 0.6)},${Math.round(b + (255 - b) * 0.6)})`;
+}
+
 interface Props {
   id: string;
   emoji: string;
@@ -54,7 +61,7 @@ export default function FlipCard({ id, emoji, label, color, size, state, onPress
         style={[
           styles.face,
           cardStyle,
-          { backgroundColor: state === 'matched' ? '#D4EDDA' : color },
+          { backgroundColor: state === 'matched' ? '#D4EDDA' : toPastel(color) },
           { borderWidth: state === 'matched' ? 3 : 0, borderColor: Colors.success },
           { transform: [{ rotateY: backRotateY }] },
         ]}
@@ -87,5 +94,5 @@ const styles = StyleSheet.create({
   },
   questionMark: { fontSize: 36, color: '#fff', fontWeight: '800' },
   emoji: {},
-  label: { color: '#fff', fontWeight: '700', textAlign: 'center', paddingHorizontal: 4 },
+  label: { color: '#444', fontWeight: '700', textAlign: 'center', paddingHorizontal: 4 },
 });

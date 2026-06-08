@@ -133,10 +133,10 @@ const TracingCanvas = forwardRef<TracingCanvasHandle, Props>(function TracingCan
   const isPreviewingRef = useRef(isMultiStroke);
   useEffect(() => { isPreviewingRef.current = isPreviewing; }, [isPreviewing]);
   useEffect(() => {
-    if (!isMultiStroke) return;
+    if (!isPreviewing) return;
     const t = setTimeout(() => setIsPreviewing(false), 1200);
     return () => clearTimeout(t);
-  }, [isMultiStroke]);
+  }, [isPreviewing]);
 
   const currentStrokeIdx = useRef(0);
   const completedDrawnPaths = useRef<SkPath[]>([]);

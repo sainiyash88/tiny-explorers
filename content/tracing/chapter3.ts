@@ -158,9 +158,11 @@ const LEVELS: TracingLevel[] = [
     id: 18,
     title: 'Letter r',
     instruction: 'Trace the small letter r!',
-    path: 'M 85 260 L 85 130 Q 85 100 130 100 Q 165 100 190 118',
     viewBox: VB,
-    startPoint: { x: 85, y: 260 },
+    strokes: [
+      { path: 'M 85 100 L 85 260',           startPoint: { x: 85, y: 100 } },
+      { path: 'M 85 130 Q 130 100 190 118',  startPoint: { x: 85, y: 130 } },
+    ],
   },
   {
     id: 19,
