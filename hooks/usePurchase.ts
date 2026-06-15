@@ -2,6 +2,9 @@ import { useState, useCallback } from 'react';
 import Purchases, { LOG_LEVEL } from 'react-native-purchases';
 import { useEntitlementStore } from '@/store/entitlementStore';
 import { IAP_PRODUCT_ID, IAP_ENTITLEMENT_ID } from '@/constants/config';
+import { isPurchasesConfigured } from './purchasesState';
+
+const STORE_UNAVAILABLE_MESSAGE = 'Store unavailable. Please try again later.';
 
 export type PurchaseStatus = 'idle' | 'loading' | 'success' | 'error' | 'cancelled';
 
@@ -11,6 +14,11 @@ export function usePurchase() {
   const setPremium = useEntitlementStore((s) => s.setPremium);
 
   const purchase = useCallback(async () => {
+    if (!isPurchasesConfigured()) {
+      setErrorMessage(STORE_UNAVAILABLE_MESSAGE);
+      setStatus('error');
+      return;
+    }
     try {
       setStatus('loading');
       setErrorMessage('');
@@ -45,6 +53,11 @@ export function usePurchase() {
   }, [setPremium]);
 
   const restorePurchases = useCallback(async () => {
+    if (!isPurchasesConfigured()) {
+      setErrorMessage(STORE_UNAVAILABLE_MESSAGE);
+      setStatus('error');
+      return;
+    }
     try {
       setStatus('loading');
       setErrorMessage('');

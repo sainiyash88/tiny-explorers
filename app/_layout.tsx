@@ -8,6 +8,7 @@ import { useProgressStore } from '@/store/progressStore';
 import { useEntitlementStore } from '@/store/entitlementStore';
 import { REVENUECAT_ANDROID_KEY, IAP_ENTITLEMENT_ID } from '@/constants/config';
 import ScreenBreakOverlay from '@/components/ui/ScreenBreakOverlay';
+import { setPurchasesConfigured } from '@/hooks/purchasesState';
 
 const SESSION_LIMIT_MS = 30 * 60 * 1000; // 30 minutes
 
@@ -24,6 +25,7 @@ export default function RootLayout() {
     if (Platform.OS === 'android') {
       try {
         Purchases.configure({ apiKey: REVENUECAT_ANDROID_KEY });
+        setPurchasesConfigured(true);
         Purchases.getCustomerInfo()
           .then((info) => {
             const isPremium = !!info.entitlements.active[IAP_ENTITLEMENT_ID];
